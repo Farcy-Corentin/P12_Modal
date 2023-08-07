@@ -1,5 +1,4 @@
-import React from 'react'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 
 export default function ModalCloseButton(
   {
@@ -27,8 +26,19 @@ export default function ModalCloseButton(
     children: ReactNode,
     arialLabel?: string,
   }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  console.log('test')
+
+  useEffect(() => {
+    if (closeButtonRef && closeButtonRef.current) {
+      console.log('true')
+      closeButtonRef.current.focus()
+    }
+  }, [closeButtonRef, closeButtonRef.current])
+
   const style = {
-    base: 'absolute top-0 right-2 py-2 px-4 pointer text-xl transition ease-in-out delay-100 duration-200',
+    base: 'absolute top-1 right-1 py-2 px-4 pointer text-xl transition ease-in-out delay-100 duration-200',
     color: color,
     backgroundColor: {
       className: backgroundColor.className,
@@ -56,6 +66,7 @@ export default function ModalCloseButton(
       }
       onClick={onClose}
       aria-label={arialLabel}
+      ref={closeButtonRef}
     >
       {children}
     </button>

@@ -1,5 +1,4 @@
-import React from 'react'
-import ModalCloseButton from './ModalCloseButton'
+import ModalCloseButton from "./ModalCloseButton.tsx"
 
 /**
  * A component representing the header of a modal.
@@ -10,8 +9,8 @@ import ModalCloseButton from './ModalCloseButton'
  */
 export default function ModalHeader({ title, onClose }: { title: string, onClose: () => void }) {
   return (
-    <header className="flex justify-between items-center w-full">
-      <h2 className="text-xl font-bold mb-4">{title}</h2>
+    <header className="flex relative justify-between items-center w-full">
+      <h2 className="text-xl p-6 font-bold">{title}</h2>
       <ModalCloseButton onClose={onClose}>
         X
       </ModalCloseButton>

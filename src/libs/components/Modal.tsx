@@ -1,6 +1,6 @@
-import React from 'react'
 import ModalInterface from '../Interface/ModalInterface'
 import ModalOverlay from './ModalOverlay'
+import useIsMobile from '../hooks/useIsMobile'
 
 /**
  * @param isOpen A boolean indicating whether the modal is open or closed.
@@ -24,21 +24,22 @@ export default function Modal(
   }:
     ModalInterface,
 ) {
+  const isMobile = useIsMobile()
   const style = {
-    modal: `p-4 relative bg-white flex flex-col ${size !== 'fullscreen' ? 'md:rounded' : ''}`,
-    size: `sm:w-full sm:h-full ${size === 'fullScreen' ? 'w-full h-full' : size}`,
+    modal: `relative bg-white flex flex-col ${size !== 'fullscreen' ? 'md:rounded' : ''}`,
+    size: `${isMobile || size === 'fullScreen' ? 'w-full h-full' : size}`,
   }
 
-  return isOpen ? (
+  return isOpen && (
     <ModalOverlay position={position} onClose={onClose} isOpen={isOpen} size={size}>
       <div
         className={`${style.modal} ${style.size} ${className ?? ''}`}
         role="dialog"
-        aria-label={ariaLabel}
+        aria-labelledby={ariaLabel}
         aria-modal="true"
       >
         {children}
       </div>
     </ModalOverlay>
-  ) : null
+  )
 }

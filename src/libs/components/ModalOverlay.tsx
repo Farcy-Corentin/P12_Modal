@@ -1,5 +1,8 @@
-import React from 'react'
 import { MouseEvent, ReactNode, useEffect, useRef } from 'react'
+import useFocusTrap from '../hooks/useFocusTrap.ts'
+import useIsMobile from '../hooks/useIsMobile.ts'
+import useBlockScroll from '../hooks/useSblockScroll.ts'
+import useActiveElement from '../hooks/useActiveElement.ts'
 
 /**
  * A modal overlay component that displays content in a modal dialog.
@@ -17,7 +20,11 @@ export default function ModalOverlay({ position, onClose, isOpen, children, size
   children: ReactNode,
   size: string | 'fullscreen',
 }) {
+  const isMobile = useIsMobile()
   const modalRef = useRef<HTMLDivElement>(null)
+  useBlockScroll(isOpen)
+
+  useFocusTrap(isOpen, modalRef)
 
   useEffect(() => {
     function handleEscapeKeyPress(event: KeyboardEvent) {
@@ -35,23 +42,30 @@ export default function ModalOverlay({ position, onClose, isOpen, children, size
     }
   }, [isOpen, onClose])
 
+  const openBtnRef = useActiveElement()
+
   function closeModal(event: MouseEvent<HTMLDivElement>) {
+    console.log(openBtnRef)
     if (event.target === modalRef.current) {
       onClose()
+      openBtnRef?.focus()
     }
+
+    onClose()
+    openBtnRef?.focus()
   }
 
   const style = {
     base: `flex bg-gray-700 bg-opacity-50 fixed top-0 left-0 w-full h-full justify-center backdrop-blur-[2px]`,
     position: {
-      top: `items-start sm:p-0 ${size === 'fullScreen' ? 'md:p-0' : 'md:pt-16'}`,
+      top: `items-start ${isMobile || size === 'fullScreen' ? 'p-0' : 'pt-16'}`,
       center: 'items-center',
-      bottom: `items-end sm:p-0 ${size === 'fullScreen' ? 'md:p-0' : 'md:pb-16'}`,
+      bottom: `items-end ${isMobile || size === 'fullScreen' ? 'p-0' : 'pb-16'}`,
     },
   }
 
   return (
-    <div className={`${style.base} ${style.position[position as keyof typeof style.position]}`} ref={modalRef} onClick={closeModal}>
+    <div className={`${style.base} ${style.position[position as keyof typeof style.position]}`} ref={modalRef} onClick={closeModal} role="presentation" aria-hidden={isOpen}>
       {children}
     </div>
   )

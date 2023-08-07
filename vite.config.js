@@ -15,12 +15,13 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, './src/libs/index.js'),
+      entry: resolve(__dirname, './src/libs/index.ts'),
       name: 'p12-modal',
-      fileName: 'p12-modal',
+      formats: ['es', 'cjs'],
+      fileName: (format) => `p12-modal.${format}.js`,
     },
     rollupOptions: {
-      external: ['react, react-dom'],
+      external: ['react', 'react-dom'],
       output: {
         globals: {
           react: 'React',
