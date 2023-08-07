@@ -1,29 +1,68 @@
 {
   "name": "p12-modal",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.7",
+  "description": "Modal for training project HRNet",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Farcy-Corentin/P12_Modal"
+  },
+  "keywords": [
+    "modal,react,typescript,tailwindcss"
+  ],
+  "author": "Corentin Farcy <corentinfarcy1@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Farcy-Corentin/P12_Modal/issues"
+  },
+  "homepage": "https://github.com/Farcy-Corentin/P12_Modal",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/p12-modal.cjs.js",
+  "module": "./dist/p12-modal.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/p12-modal.es.js",
+      "require": "./dist/p12-modal.umd.js",
+      "type": "./src/libs/types/index.d.ts"
+    }
+  },
+  "typings": "./src/libs/types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-css-injected-by-js": "^3.2.1",
+    "vite-plugin-dts": "^3.4.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
+    "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
+    "@vitejs/plugin-react": "^4.0.4",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "typescript": "^5.1.6",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint": "^8.46.0",
+    "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5"
+    "vite": "^4.4.9"
   }
 }
