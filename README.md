@@ -1,7 +1,6 @@
-# Installation
+# Documentation
 
-## System Requirements :
-
+For full documentation, visit [p12-modal documentation](https://p12-modal.vercel.app/Api/modalHeader)
 
 ## Installation
 
