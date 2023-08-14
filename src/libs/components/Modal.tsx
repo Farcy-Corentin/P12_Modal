@@ -1,5 +1,5 @@
 import ModalInterface from '../Interface/ModalInterface'
-import ModalOverlay from './ModalOverlay'
+import ModalOverlay from '../components/ModalOverlay'
 import useIsMobile from '../hooks/useIsMobile'
 
 /**
@@ -11,6 +11,8 @@ import useIsMobile from '../hooks/useIsMobile'
  * @param position The position of the modal. Possible values: 'top', 'bottom', 'center'. (Optional)
  * @param size The size of the modal. Possible values: any valid CSS size class or 'fullscreen'. (Optional)
  * @param children The content to be displayed within the modal.
+ * @param zIndexOverlay
+ * @param zIndexModal
  */
 export default function Modal(
   {
@@ -21,19 +23,22 @@ export default function Modal(
     position = 'center',
     size = 'md:w-1/2 md:h-auto',
     children,
+    zIndexOverlay = 'z-10',
+    zIndexModal = 'z-20',
   }:
     ModalInterface,
 ) {
   const isMobile = useIsMobile()
   const style = {
     modal: `relative bg-white flex flex-col ${size !== 'fullscreen' ? 'md:rounded' : ''}`,
-    size: `${isMobile || size === 'fullScreen' ? 'w-full h-full' : size}`,
+    size: `${isMobile || size === 'fullscreen' ? 'w-screen h-screen' : size}`,
+    zIndex: zIndexModal,
   }
 
   return isOpen && (
-    <ModalOverlay position={position} onClose={onClose} isOpen={isOpen} size={size}>
+    <ModalOverlay position={position} onClose={onClose} isOpen={isOpen} size={size} zIndex={zIndexOverlay}>
       <div
-        className={`${style.modal} ${style.size} ${className ?? ''}`}
+        className={`${style.modal} ${style.size} ${className ?? ''} ${style.zIndex}`}
         role="dialog"
         aria-labelledby={ariaLabel}
         aria-modal="true"
