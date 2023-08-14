@@ -1,0 +1,208 @@
+import BasicModal from '../exemples/BasicModal'
+import OptionalSizeModal from '../exemples/OptionalSizeModal'
+import OptionalPositionModal from '../exemples/OptionalPositionModal'
+
+## Basic Modal
+
+<BasicModal/>
+
+```mdx
+  import {useState} from 'react'
+  import Modal from '@/components/Modal'
+  import ModalHeader from '@/components/ModalHeader'
+  import ModalContent from '@/components/ModalContent'
+
+  export default function BasicModal() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  function onClose() {
+    setIsOpen(false)
+  }
+
+  return (
+    <div className="border rounded-2xl mt-3 p-4" style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '200px',
+      width: '100%',
+    }}>
+      <button onClick={() => setIsOpen(true)} style={{
+        border: 'black 2px solid',
+        padding: '8px 20px',
+        borderRadius: '50px',
+      }}>Open
+      </button>
+      <Modal
+        isOpen={isOpen}
+        ariaLabel="Successfull modal when employee is created."
+        onClose={onClose}
+        zIndexOverlay="z-40"
+        zIndexModal="z-50"
+      >
+        <div className="flex flex-col items-center h-full">
+          <div className="flex justify-end w-full">
+            <button onClick={onClose} className="p-4">X</button>
+          </div>
+          <div className="flex items-center h-full p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, eaque, ipsam. Aperiam, autem consequuntur culpa debitis eligendi excepturi expedita laborum nemo quam reprehenderit sapiente ullam veniam. Aliquid, beatae, quidem. Rerum.
+            </p>
+          </div>
+        </div>
+      </Modal>
+    </div>
+  )
+}
+```
+
+## Customize size
+
+You can set a modal size by using **``size``** props, if you want a fullscreen modal, you can set size with **``'fullscreen'``**.
+
+<OptionalSizeModal/>
+
+```mdx
+  import {useState} from 'react'
+  import { Modal } from 'p12-modal'
+
+  export default function OptionalSizeModal() {
+    const [isOpen, setIsOpen] = useState(false)
+    const [size, setSize] = useState('')
+
+    const sizes = [
+      {
+        name: 'custom modal',
+        value: 'h-[500px] w-full',
+      },
+      {
+        name: 'half modal',
+        value: 'h-1/2 w-1/2',
+      },
+      {
+        name: 'fullscreen modal',
+        value: 'fullscreen',
+      },
+    ]
+
+    function onClose() {
+      setIsOpen(false)
+    }
+
+    return (
+      <>
+      {sizes.map((size) => {
+        return <button key={size.name} onClick={() => {
+          setSize(size.value)
+          setIsOpen(true)
+        }} style={{
+          border: 'black 2px solid',
+          padding: '8px 20px',
+          borderRadius: '50px',
+        }}>Open {size.name}
+        </button>
+      })}
+      <Modal
+        isOpen={isOpen}
+        ariaLabel="Successfull modal when employee is created."
+        onClose={onClose}
+        zIndexOverlay="z-40"
+        zIndexModal="z-50"
+        size={size}
+      >
+        <div className="flex flex-col items-center h-full">
+          <div className="flex justify-end w-full">
+            <button onClick={onClose} className="p-4">X</button>
+          </div>
+          <div className="flex items-center h-full p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, eaque, ipsam. Aperiam, autem consequuntur culpa debitis eligendi excepturi expedita laborum nemo quam reprehenderit sapiente ullam veniam. Aliquid, beatae, quidem. Rerum.
+            </p>
+          </div>
+        </div>
+      </Modal>
+    <>
+  )
+}
+```
+
+## Customize position
+
+You can set a modal position by using **``position``** props. Values can be **``'top'``**, **``'bottom'``**, **``'center'``**, the modal is centered by default.
+
+<OptionalPositionModal/>
+
+```mdx
+  import { useState } from 'react'
+  import Modal from '@/components/Modal'
+  import ModalHeader from '@/components/ModalHeader'
+  import ModalContent from '@/components/ModalContent'
+  import ModalInterface from '@/Interface/ModalInterface'
+
+  export default function OptionalPositionModal() {
+    const [isOpen, setIsOpen] = useState(false)
+    const [position, setPosition] = useState<ModalInterface['position']>(undefined)
+    const positions: ModalInterface['position'][] = ['top', 'bottom', 'center']
+
+    function onClose() {
+      setIsOpen(false)
+    }
+
+    return (
+      <div className="border rounded-2xl mt-3 p-4" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: '200px',
+        width: '100%',
+      }}>
+        {positions.map((position: ModalInterface['position']) => {
+          return <button key={position} onClick={() => {
+            setPosition(position as ModalInterface['position'])
+            setIsOpen(true)
+          }} style={{
+            border: 'black 2px solid',
+            padding: '8px 20px',
+            borderRadius: '50px',
+          }}>Open modal {position}
+          </button>
+        })}
+        <Modal
+          isOpen={isOpen}
+          ariaLabel="Successfull modal when employee is created."
+          onClose={onClose}
+          position={position}
+          zIndexOverlay="z-40"
+          zIndexModal="z-50"
+        >
+          <ModalHeader title="Je suis un titre" onClose={onClose}/>
+          <ModalContent>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda distinctio illum inventore odio
+              officiis sequi vitae?
+              Aut dicta mollitia, natus necessitatibus officiis quam quo! Earum est laboriosam sequi ullam!
+            </p>
+            <a href="#">Test focus</a>
+            <a href="#">Test focus1</a>
+            <a href="#">Test focus2</a>
+          </ModalContent>
+        </Modal>
+      </div>
+    )
+  }
+```
+
+## Accessibility
+
+### Keyboard and Focus Management
+
+- When the modal opens, focus is trapped within it.
+- When the modal opens, focus is automatically set to the first enabled element.
+- Clicking on the overlay closes the Modal.
+- Pressing Esc closes the Modal.
+- Scrolling is blocked on the elements behind the modal.
+
+### ARIA
+
+- The Modal has aria-modal set to true.
+- The Modal has aria-labelledby set to the id of the ModalHeader.
