@@ -1,0 +1,118 @@
+import ModalCloseButtonExemple from '@/exemples/ModalCloseButtonExemple'
+
+# ModalCloseButton component
+
+The `ModalCloseButton` component provides a close button for modal components. It can be used to create a button that allows users to close the modal.
+
+<ModalCloseButtonExemple/>
+
+```mdx
+  import { useState } from 'react'
+  import { Modal, ModalHeader, ModalCloseButton } from 'p12-modal'
+
+  export default function ModalCloseButtonExemple() {
+    const [isOpen, setIsOpen] = useState(false)
+
+    function onClose() {
+      setIsOpen(false)
+    }
+
+    return (
+      <>
+        <button onClick={() => setIsOpen(true)} style={{
+          border: 'black 2px solid',
+          padding: '8px 20px',
+          borderRadius: '50px',
+        }}>Open
+        </button>
+        <Modal
+          isOpen={isOpen}
+          ariaLabel="Successfull modal when employee is created."
+          onClose={onClose}
+          zIndexOverlay="z-40"
+          zIndexModal="z-50"
+        >
+          <ModalHeader>
+            <h2 className="text-xl p-6 font-bold">I'm a modal</h2>
+            <ModalCloseButton onClose={onClose}>
+              X
+            </ModalCloseButton>
+          </ModalHeader>
+          <div className="flex items-center h-full p-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, eaque, ipsam. Aperiam, autem consequuntur
+              culpa debitis eligendi excepturi expedita laborum nemo quam reprehenderit sapiente ullam veniam. Aliquid,
+              beatae, quidem. Rerum.
+            </p>
+          </div>
+        </Modal>
+      </>
+    )
+  }
+```
+
+## Props
+
+### `onClose`
+A function to be called when the close button is clicked, triggering the modal to close.
+
+Type: `() => void`
+
+### `className`
+Additional custom CSS class to apply to the close button.
+
+Type: `string`
+
+### `border`
+Style of the button border.
+
+Type: `string`
+
+Possible Values: `'none', 'px', 'sm'`
+
+Default: 'none'
+
+### `borderColor`
+Color of the button border.
+
+Type: `string`
+
+Possible Values: `'base', 'neutral'`
+
+Default: 'base'
+
+### `borderRadius`
+Button border radius.
+
+Type: `string`
+
+Possible Values: 'none', 'md', 'full'
+
+Default: 'md'
+
+### `backgroundColor`
+Button background color.
+
+Type: `{ className: string }`
+
+Default: `{ className: 'transparent' }`
+
+### `color`
+Button text and icon color.
+
+Type: `string`
+
+Default: 'text-gray-400 hover:text-black'
+
+### `children`
+Content of the button (React children elements).
+
+Type: `ReactNode`
+
+### `arialLabel`
+Alternative text for accessibility purposes.
+
+Type: `string`
+
+Default: 'close modal button'
+

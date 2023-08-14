@@ -1,0 +1,66 @@
+# Modal Component Documentation
+
+## Props
+
+### `isOpen`
+
+Controls whether the modal is open or closed.
+
+Type: `boolean`
+Default: `false`
+
+### `ariaLabel`
+
+An ARIA label for accessibility purposes.
+
+Type: `string`
+
+### `onClose`
+
+A callback function to close the modal when triggered.
+
+Type: `() => void`
+
+### `zIndexOverlay`
+
+The z-index value for the modal overlay.
+
+Type: `string`
+Default: `'z-40'`
+
+### `zIndexModal`
+
+The z-index value for the modal content.
+
+Type: `string`
+Default: `'z-50'`
+
+### `size`
+
+The size of the modal content. Use `'fullscreen'` for a fullscreen modal.
+
+Type: `string`
+Default: `undefined`
+
+### `position`
+
+The position of the modal content.
+
+Type: `string`
+Default: `'center'`
+Possible Values: `'top'`, `'bottom'`, `'center'`, or a custom string value
+
+### Accessibility
+
+#### Keyboard and Focus Management
+
+- When the modal opens, focus is trapped within it.
+- The first enabled element receives focus when the modal opens.
+- Clicking on the overlay closes the modal.
+- Pressing the Esc key closes the modal.
+- Scrolling is blocked on elements behind the modal.
+
+#### ARIA Attributes
+
+- `aria-modal` attribute is set to `true`.
+- `aria-labelledby` is set to the ID of the `ModalHeader`.
