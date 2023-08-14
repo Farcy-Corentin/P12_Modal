@@ -1,19 +1,19 @@
-import ModalCloseButton from "./ModalCloseButton.tsx"
+import { ReactNode } from 'react'
 
 /**
  * A component representing the header of a modal.
  *
- * @param title - The title of modal.
- * @param onClose - A function to close the modal when triggered.
- * @returns {JSX.Element} The JSX element representing the modal header.
+ * @param children - The content to be displayed within the modal.
  */
-export default function ModalHeader({ title, onClose }: { title: string, onClose: () => void }) {
+export default function ModalHeader({ children }: {
+  /**
+   * The content to be displayed within the modal.
+   */
+  children: ReactNode
+}) {
   return (
     <header className="flex relative justify-between items-center w-full">
-      <h2 className="text-xl p-6 font-bold">{title}</h2>
-      <ModalCloseButton onClose={onClose}>
-        X
-      </ModalCloseButton>
+      {children}
     </header>
   )
 }
